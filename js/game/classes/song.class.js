@@ -37,16 +37,15 @@ Song.prototype.loadChart = function(callBack){
 			return response.text();
   		})
   		.then(function(chartTxt) {
-			console.log("received", chartTxt);
 
 			songRegexp = /\[Song\]\s+\{([^\}]+)/gmi;
-    		$this.parseSong(songRegexp.exec(chartTxt)[1].split('\r\n'));
+    		$this.parseSong(songRegexp.exec(chartTxt)[1].split(/\r\n|\r|\n/g));
 		
 			timeRegexp = /\[SyncTrack\]\s+\{([^\}]+)/gmi;
-    		$this.parseBpms(timeRegexp.exec(chartTxt)[1].split('\r\n'));
+    		$this.parseBpms(timeRegexp.exec(chartTxt)[1].split(/\r\n|\r|\n/g));
 		
 			singleEasy = /\[EasySingle\]\s+\{([^\}]+)/gmi;
-    		$this.parseTrack('EasySingle',singleEasy.exec(chartTxt)[1].split('\r\n')); 
+    		$this.parseTrack('EasySingle',singleEasy.exec(chartTxt)[1].split(/\r\n|\r|\n/g)); 
 		
 			$this.deduceTrackTimes('EasySingle');
 		
