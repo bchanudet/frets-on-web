@@ -34,6 +34,9 @@ Song.prototype.loadChart = function(callBack){
 	console.log("loading", $this.chart);
 	fetch($this.chart)
   		.then(function(response) {
+			if(response.headers.get('Content-Type') == 'application/octet-stream'){
+				return atob(response.text());
+			}
     		return response.text();
   		})
   		.then(function(chartTxt) {
