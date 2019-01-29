@@ -1,0 +1,199 @@
+<html>
+	<head>
+		<title>Frets on 3D !</title>
+		<link href="https://fonts.googleapis.com/css?family=Bangers|Oswald:400,700|Sriracha|Mouse+Memoirs" rel="stylesheet"> 
+		<link href="css/game.css" rel="stylesheet"> 		
+		<link href="css/editor.css" rel="stylesheet"> 		
+	</head>
+	<body>
+		<h2>Song level Editor</h2>
+		<div>
+			<form id="basic-information">
+				<label>Song name: </label><input name="title"/>
+				<label>Youtube Video ID: </label><input name="youtube"/>
+				<label>Artist:</label><input name="artist"/>
+				<label>Difficulty:</label><input name="difficulty" type="number" min="0" max="4"/>
+			</form>
+			<div id="youtube-player">
+				<div id="youtube"></div>
+			</div>
+			<div id="button-actions">
+			qsdqsdqsdqsdqsd
+			</div>
+			<div id="youtube-controls">
+					<button id="editor-ctrl-start" onclick="YOUTUBE.seekTo(0);">⏮<br/><small>START</small></button>
+					<button id="editor-ctrl-start" onclick="YOUTUBE.seekTo(YOUTUBE.getCurrentTime()-10);">⏪<br/><small>-10s</small></button>
+					<button id="editor-ctrl-start" onclick="YOUTUBE.seekTo(YOUTUBE.getCurrentTime()-1);">◀<br/><small>-1s</small></button>
+					<button id="editor-ctrl-pause" onclick="YOUTUBE.pauseVideo();">⏸<br/><small>PAUSE</small></button>
+					<button id="editor-ctrl-play" onclick="YOUTUBE.playVideo();">▶<br/><small>PLAY</small></button>
+					<button id="editor-ctrl-start" onclick="YOUTUBE.seekTo(YOUTUBE.getCurrentTime()+1);">▶<br/><small>+1s</small></button>
+					<button id="editor-ctrl-start" onclick="YOUTUBE.seekTo(YOUTUBE.getCurrentTime()+10);">⏩<br/><small>+10s</small></button>
+					<button id="editor-ctrl-start" onclick="YOUTUBE.seekTo(99999);">⏭<br/><small>END</small></button>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<button id="editor-ctrl-half" onclick="YOUTUBE.setPlaybackRate(0.5);">x0.5<br/><small>SPEED</small></button>
+					<button id="editor-ctrl-normal" onclick="YOUTUBE.setPlaybackRate(1);">x1<br/><small>SPEED</small></button>
+					<button id="editor-ctrl-twice" onclick="YOUTUBE.setPlaybackRate(2);">x2<br/><small>SPEED</small></button>
+			</div>
+			<div id="youtube-time">
+				0.00000
+			</div>
+			<div id="timeline">
+				<div id="overlay">
+					<div id="time"></div>
+				</div>
+				<div class="track track-green">
+				</div>
+				<div class="track track-red"></div>
+				<div class="track track-yellow"></div>
+				<div class="track track-blue"></div>
+				<div class="track track-orange"></div>
+				<div class="track track-vibratto"></div>
+				<div class="track track-bonus"></div>
+				<div class="track track-light"></div>
+			</div>
+		</div>
+		<script>
+			var SONGS;
+			var currentSong;
+			var pixelPerSecond = 100;
+			var snapStep = 0.01;
+		</script>
+		<script src="js/songs/songs.js"></script>
+		<script src="js/game/classes/song.class.js"></script>
+		<script>
+		  var YOUTUBE;
+		  function onYouTubeIframeAPIReady() {
+			YOUTUBE = new YT.Player('youtube', {
+			  height: 'auto',
+			  width: '100%',
+			  videoId: '',
+			  playerVars :{
+				  controls: 0,
+				  disablekb: 1,
+				  enablejsapi: 1,
+				  modestbranding: 1,
+				  showinfo: 0,
+				  iv_load_policy: 3,
+				  rel: 0
+			  },	
+			  events: {
+				'onReady': function(){
+					
+					selectSong("takemeout");
+				},
+				'onStateChange': function(event){
+				  console.log(event);
+					if(YOUTUBE.getPlayerState() == 5){
+					}
+			  	}
+			  }
+			});
+		  }
+		
+			setInterval(()=>{
+				if(YOUTUBE === undefined || YOUTUBE.getCurrentTime === undefined) return;
+				currentTime = YOUTUBE.getCurrentTime();
+				document.getElementById("youtube-time").innerHTML = currentTime;
+				scrollOffset = (currentTime * 100);
+				document.getElementById("timeline").scrollLeft = scrollOffset;
+			},1);
+			
+			var selectSong = function(guid){
+				var tmpSong = new Song(guid);
+				tmpSong.loadDescription(SONGS[guid]);
+				tmpSong.loadChart(Render);
+				
+				console.log(tmpSong);
+				
+				currentSong = tmpSong;
+				YOUTUBE.cueVideoById(tmpSong.youtube, 0, 'hd1080');
+			}
+			
+			
+			var Render = function(){
+				/*if(YOUTUBE !== undefined || YOUTUBE.getDuration !== undefined) {
+					console.log(YOUTUBE.getDuration());
+					document.querySelector(".track-green").style.width = YOUTUBE.getDuration() * pixelPerSecond;
+					document.querySelector(".track-red").style.width = YOUTUBE.getDuration() * pixelPerSecond;
+					document.querySelector(".track-yellow").style.width = YOUTUBE.getDuration() * pixelPerSecond;
+					document.querySelector(".track-blue").style.width = YOUTUBE.getDuration() * pixelPerSecond;
+					document.querySelector(".track-orange").style.width = YOUTUBE.getDuration() * pixelPerSecond;
+				}*/
+				
+				var taps = currentSong.getTrack("EasySingle");
+				
+				for(var i=0, l = taps.length; i < l; i+=1){
+					var currentTap = taps[i];
+										
+					if(currentTap.c === 0){
+						AddTap("green", currentTap.s, currentTap.d);
+					}
+					if(currentTap.c === 1){
+						AddTap("red", currentTap.s, currentTap.d);
+					}					
+					if(currentTap.c === 2){
+						AddTap("yellow", currentTap.s, currentTap.d);
+					}
+					if(currentTap.c === 3){
+						AddTap("blue", currentTap.s, currentTap.d);
+					}
+					if(currentTap.c === 4){
+						AddTap("orange", currentTap.s, currentTap.d);
+					}
+					//console.log("added tap at " + currentTap.s + " for " + currentTap.c);
+				}
+			}
+			
+			var AddTap = function(color, time, duration){
+				var time = parseInt(time/snapStep)*snapStep;
+				
+				if(document.querySelectorAll(".track-"+ color +" span.tap[data-start='"+ time + "']").length > 0){
+					//console.log("already a tap for color " + color + " at time " + time);
+					return;
+				}
+				
+				var tapElement = document.createElement("span");
+					tapElement.classList.add("tap");
+					tapElement.style.left = 200 + (time * pixelPerSecond);
+					tapElement.style.width = (duration * pixelPerSecond);
+					tapElement.setAttribute("data-start", time);
+					tapElement.onclick = function(e){ 
+						console.log(e, this); 
+						this.remove();
+					}
+				
+				document.querySelector(".track-" + color).appendChild(tapElement);
+			}
+			
+			document.onkeypress = function(e){
+						
+				if(e.key.toLowerCase() === "a"){
+					AddTap("green",YOUTUBE.getCurrentTime());
+				}
+				if(e.key.toLowerCase() === "z"){
+					AddTap("red",YOUTUBE.getCurrentTime());
+				}
+				if(e.key.toLowerCase() === "e"){
+					AddTap("yellow",YOUTUBE.getCurrentTime());
+				}
+				if(e.key.toLowerCase() === "r"){
+					AddTap("blue",YOUTUBE.getCurrentTime());
+				}
+				if(e.key.toLowerCase() === "t"){
+					AddTap("orange",YOUTUBE.getCurrentTime());
+				}
+				
+				if(e.key.toLowerCase() === "o"){
+					AddTap("vibratto",YOUTUBE.getCurrentTime());
+				}
+				if(e.key.toLowerCase() === "p"){
+					AddTap("bonus",YOUTUBE.getCurrentTime());
+				}
+				
+			}
+		</script>
+		<script src="https://www.youtube.com/iframe_api"></script>
+		<script>
+		</script>
+	</body>
+</html>

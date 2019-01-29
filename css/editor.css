@@ -1,0 +1,119 @@
+*{
+	box-sizing: border-box;
+}
+
+#basic-information,  #youtube-player, #button-actions{
+	background: rgba(0,0,0,.25);
+	float: left;
+	width: 33%;
+	height: 288px;
+	padding: 10px;
+}
+
+#youtube-player{
+	padding: 0;
+}
+
+#basic-information label{
+	position: relative;
+	display: inline-block;
+	width: 50%;
+	padding-right: 10px;
+	text-align: right;
+}
+#basic-information input{
+	position: relative;
+	display: inline-block;
+	min-width: 50%;
+}
+ #youtube{
+	position: relative;
+	width: 100%;
+	height: 288px;
+}
+
+#youtube-controls{
+	clear: both;
+	text-align: center;
+}
+#youtube-controls button{
+	color: white;
+	background: #242222;
+	border: 1px solid #433;
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-size: 1em;
+	text-shadow: 0 0 5px black;
+	box-shadow: 0 0 10px rgba(0,0,0,.25);
+	cursor: pointer;
+}
+#youtube-controls button small{
+	font-size: .5em;
+}
+#youtube-controls button:hover{
+	background: #422;
+	color: #F44;
+}
+
+#timeline { 
+	margin-top: 20px;
+	height:360px;
+	background: rgba(0,0,0,.5);
+	border: 5px solid rgba(0,0,0,0);
+	overflow-x: scroll;
+	position: relative;
+}
+
+#timeline .track{
+	height: 39px;
+	position: relative;
+	border-bottom: 1px solid rgba(255,255,255,0.2);
+	padding: 0;
+	width: 27301;
+}
+
+#timeline #time{
+	position: fixed;
+	width: 200px;
+	height: 340px;
+	border-right: 1px solid white;
+}
+
+#timeline .track-time{
+	background: rgba(0,0,0,.2);
+	font-size: 0.5rem;
+	font-family: monospace;
+}
+#youtube-time{
+	text-align: center;
+}
+
+.track-green{
+	background: rgba(0,255,0,0.2);
+}
+.track-red{
+	background: rgba(255,0,0,0.2);
+}
+.track-yellow{
+	background: rgba(255,255,0,0.2);
+}
+.track-blue{
+	background: rgba(0,0,255,0.2);
+}
+.track-orange{
+	background: rgba(255,127,0,0.2);
+}
+.track-bonus{
+	background: rgba(0,255,255,0.2);
+}
+
+.track span.tap{
+	position: absolute;
+	border-radius: 10px;
+	min-width: 10px;
+	height: 25px;
+	background: white;
+	top: 50%;
+	margin-top: -12.5px;
+	margin-left: -5px;
+}

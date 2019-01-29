@@ -1,0 +1,269 @@
+html { 
+	margin: 0; 
+	background: black;
+	color: white;
+	font-family: 'Oswald';
+	background: #1B1A1F url('../img/background.jpg') center center no-repeat;
+	background-size: cover;
+	min-height: 100%;
+	font-size: 22px;
+}
+
+h1{
+	font-size: 4rem;
+	text-align: center;
+	text-transform: uppercase;
+	text-shadow: 0 5px black, 0 5px 10px rgba(0,0,0,.75);
+	font-weight: 700;
+}
+
+h2{
+	text-align: center;
+	font-weight: 700;
+	text-shadow: 0 3px black, 0 3px 7px rgba(0,0,0,.75);;
+}
+
+h3{
+	font-weight: 700;
+	text-shadow: 0 3px black, 0 3px 7px rgba(0,0,0,.75);;
+}
+
+.screen{
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding: 20px;
+}
+
+.screen{
+	display: none;
+}
+.screen.active{
+	display: block;
+}
+
+#inputs .input-mode{
+	max-width: 640px;
+	margin: auto;
+	
+	margin-bottom: 20px;
+	border: 5px solid white;
+	border-radius: 20px;
+	padding: 10px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.75);
+}
+#inputs .input-mode.input-keyboard{
+	background: rgba(0,0,0,0.5) url("../img/inputs/keyboard.png") center right no-repeat;
+}
+#inputs .input-mode.input-guitar{
+	background: rgba(0,0,0,0.5) url("../img/inputs/guitar.png") center right no-repeat;
+}
+#inputs .input-mode.input-gamepad{
+	background: rgba(0,0,0,0.5) url("../img/inputs/gamepad.png") center right no-repeat;
+}
+
+#inputs .input-mode.nav-selected{
+	border-color: rgb(252, 61, 21);
+	background-color: rgba(90, 10, 17,0.75);
+	box-shadow: 0 0 10px rgba(255,255,255,0.75);
+}
+
+
+#song-selection .song-element{
+	max-width: 800px;
+	margin: auto;
+	
+	border: 5px solid white;
+	border-radius: 20px;
+	margin-bottom: 10px;
+	padding: 10px;
+	background: rgba(0,0,0,.5);
+	overflow: hidden;
+	box-shadow: 0 0 5px rgba(0,0,0,.75);
+}
+#song-selection .song-element.nav-selected{
+	border-color: rgb(252, 61, 21);
+	background: rgba(90, 10, 17,0.75);
+}
+
+.song-element h2{
+	font-weight: 700;
+	font-size: 1.5rem;
+	text-align: left;
+}
+
+.song-element h2, .song-element h3, .song-element p{
+	display: block;
+	margin: 0;
+}
+.song-element h3{
+	font-weight: 100;
+	font-size: 16px;
+}
+.song-element img{
+	float: right;
+	height: 110px;
+	width: 146px;
+	border-radius: 10px;
+}
+.difficulty{
+	font-size: 24px;
+	letter-spacing: -.5em;
+	color: rgba(0,0,0,1);
+	text-shadow: 0 0 5px rgba(255, 77, 18,.75);	
+}
+
+.difficulty-1{
+	filter: hue-rotate(180deg) saturate(1);
+}
+.difficulty-2{
+	filter: hue-rotate(140deg) saturate(1);
+}
+.difficulty-3{
+	filter: hue-rotate(40deg) saturate(3) brightness(1.25);
+}
+.difficulty-4{
+}
+.difficulty-5{
+	text-shadow: 0 0 15px rgba(255, 77, 18,1), 0 0 5px rgb(255, 179, 147);	
+}
+.difficulty-1 span:nth-child(n+2){
+	color: rgba(0,0,0,.5);
+	text-shadow: none;
+	filter: saturate(0);
+}
+.difficulty-2 span:nth-child(n+3){
+	color: rgba(0,0,0,.5);
+	text-shadow: none;
+	filter: saturate(0);
+}
+.difficulty-3 span:nth-child(n+4){
+	color: rgba(0,0,0,.5);
+	text-shadow: none;
+	filter: saturate(0);
+}
+.difficulty-4 span:nth-child(n+5){
+	color: rgba(0,0,0,.5);
+	text-shadow: none;
+	filter: saturate(0);
+}
+
+
+.scores-item{
+	max-width: 600px;
+	margin: auto;
+}
+
+.scores-item h3{
+	display: inline-block;
+	width: 50%;
+	text-indent: 0;
+	padding: 0;
+	margin: 0;
+}
+.scores-item h3.scores-item-number{
+	text-align: right;
+}
+#scores-return{
+	text-align: center;
+}
+#scores-return button{
+	max-width: 800px;
+	margin: auto;
+	
+	border: 5px solid white;
+	border-radius: 20px;
+	margin-bottom: 10px;
+	padding: 10px;
+	background: rgba(0,0,0,.25);
+	overflow: hidden;
+	box-shadow: 0 0 5px rgba(0,0,0,.75);
+	font-family: "Oswald";
+	color: white;
+	font-size: 20px;
+	margin: 0 10px;
+}
+#scores-return button.nav-selected{
+	border-color: rgb(252, 61, 21);
+	background: rgba(90, 10, 17,0.75);
+}
+
+
+
+#stage{
+	padding: 0;
+}
+
+iframe {
+	position: fixed;
+	background: none;
+}
+canvas{
+	position: fixed;
+	width: 100%; 
+	height: 100%; 
+	background: linear-gradient(to top, black 0%, transparent 75%);
+}
+#GUI{
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+#stage-score{
+	font-weight: normal;
+	color: #eee;
+	font-size: 46px;
+	position: fixed;
+	top: 50%;
+	text-align: center;
+	width: 100%;
+	text-shadow: 0 0 10px black;
+}
+#countdown{
+	position: absolute;
+	top: 50%; 
+	font-size: 8em;
+	text-align: center;
+	width: 100%;
+	line-height: 0;
+	transform: translateY(-50%) scale(5);
+	text-shadow: 0 0 10px red;
+	display: none;
+}
+
+
+#information{
+	padding: 15px;
+	position: absolute;
+}
+#pause-screen{
+	display: block;
+	background: rgba(0,0,0,.75);
+	position: fixed;
+	top: 0;
+	left: 0; right: 0;
+	bottom: 0;
+	z-index: 999;
+
+}
+
+#pause-text{
+	font-size: 1.5em;
+	letter-spacing: .1em;
+	text-align: center;
+	top: 50%; left: 50%;
+	position: fixed;
+	margin: auto;
+	background: #1B1A1F url('../img/background.jpg') bottom left no-repeat;
+	background-size: cover;
+	padding: 15px;
+	border-radius: 20px;
+	transform: translateY(-50%) translateX(-50%);
+	text-shadow: 0 5px 5px black;
+	box-shadow: 0 5px 10px black;
+}
